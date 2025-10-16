@@ -17,7 +17,8 @@ object Main {
 
     // Aufgabe 2:
     // Korrigierte Version von myMethod
-    // Ursprünglicher Code fehlte Klammern und war syntaktisch falsch in Scala 2
+    // Ursprünglicher Code hatte falsche if statements:
+    // beim ersten if muss ein else folgen, sonst wird es ignoriert
     def myMethod(param: Int): String = {
       if (param < 0)
         "kleiner null"

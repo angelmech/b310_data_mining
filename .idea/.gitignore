@@ -1,0 +1,57 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# === sbt build ===
+target/
+project/target/
+project/project/
+
+# === IDEs ===
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VSCode + Metals
+.bloop/
+.metals/
+.vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# === OS-specific files ===
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Logs and temporary files ===
+*.log
+*.tmp
+*.swp
+*.bak
+
+# === Environment / secrets ===
+.env
+*.key
+*.pem
+
+# === Misc ===
+# Scala REPL history
+.scala_history
+
+# Generated docs or reports
+target-site/
+

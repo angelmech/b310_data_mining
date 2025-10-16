@@ -43,6 +43,8 @@ class uebung2 {
 def explode(): Boolean =
   throw new RuntimeException("Boom!")
 
+  //change
+
 @main def test(): Unit =
   val u = new uebung2
   println("Fall 1:")

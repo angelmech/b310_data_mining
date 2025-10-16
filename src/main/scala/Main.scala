@@ -46,21 +46,39 @@ object Main {
       x
     }
     // x = 18
+    // wenn semikolon weg, würde compiler x = val offset = 1 lesen was quatsch wäre,
+    // mit semikolon liest compiler val x =.., dann aber val offset =1; <- semikolon = ende des ausdrucks
+    // also ´kompiliert er zuerst das, dann liest er für val x =... weiter
+
 
     // ---------------------------------------------------------------------------
 
-    // Aufgabe 4:
+    // Aufgabe 4: Rekursion + Abbruchbedingung + Rückgabe des letzten gültigen Werts
     // Funktion squareUnder(x, max): quadriert x wiederholt, bis das Ergebnis > max ist
-    def squareUnder(x: Double, max: Double): Double = {
-      @tailrec
-      def loop(current: Double): Double = {
-        val squared = current * current
-        if (squared > max) current
-        else loop(squared)
-      }
-      loop(x)
+    @tailrec
+    final def squareUnder(x: Double, max: Double): Double = {
+      val squared = x * x
+      if (squared > max)
+        x
+      else
+        squareUnder(squared, max) // tail recursive call
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // ---------------------------------------------------------------------------
 

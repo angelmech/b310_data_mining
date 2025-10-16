@@ -19,24 +19,6 @@ project/project/
 *.ipr
 *.iws
 
-# VSCode + Metals
-.bloop/
-.metals/
-.vscode/
-
-# Eclipse
-.classpath
-.project
-.settings/
-
-# === OS-specific files ===
-# macOS
-.DS_Store
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
 # === Logs and temporary files ===
 *.log
 *.tmp

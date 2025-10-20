@@ -1,9 +1,6 @@
 import scala.annotation.tailrec
 
-object Main {
-
-  private class Uebung2 {
-
+class Uebung2 {
     // Aufgabe 1:
     // Funktion "or", die nur das erste Argument auswertet (Short-Circuit Evaluation)
     def or(x: Boolean, y: => Boolean): Boolean = {
@@ -47,9 +44,9 @@ object Main {
       x
     }
     // x = 18
-    // wenn semikolon weg, würde compiler x = val offset = 1 lesen was quatsch wäre,
-    // mit semikolon liest compiler val x =.., dann aber val offset =1; <- semikolon = ende des ausdrucks
-    // also ´kompiliert er zuerst das, dann liest er für val x =... weiter
+    // wenn semikolon weg, würde compiler x=val offset=1 lesen was quatsch wäre,
+    // mit semikolon liest compiler val x=..., dann aber val offset=1; <- semikolon = ende des ausdrucks
+    // also kompiliert er zuerst das, dann liest er für val x=... weiter
 
 
     // ---------------------------------------------------------------------------
@@ -64,54 +61,30 @@ object Main {
       else
         squareUnder(squared, max) // tail recursive call
     }
-  }
 
+    // ---------------------------------------------------------------------------
 
+    //Aufgabe 5: Schreiben Sie eine Funktion teiler(zahl:Int):Int, die den größten ganzzahligen
+    //Teiler der übergebenen Zahl– kleiner als die Zahl selbst – berechnet. Das heißt, wird eine
+    //Primzahl übergeben, so gibt die Funktion 1 zurück, ist es keine Primzahl den
+    //entsprechenden Teiler
+    def teiler(zahl: Int): Int = {
+      @annotation.tailrec
+      def loop(i: Int): Int =
+        if (i == 1)
+          1
+        else
+          if (zahl % i == 0)
+            i
+          else
+            loop(i - 1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // ---------------------------------------------------------------------------
-
-  // Hilfsfunktion, die einen Fehler wirft
-  private def explode(): Boolean = {
-    throw new RuntimeException("Boom!")
-  }
-
-  // ---------------------------------------------------------------------------
-
-  def main(args: Array[String]): Unit = {
-    val u = new Uebung2
-
-    println("---------Aufgabe 1----------")
-    println("Fall 1:")
-    println(u.or(x = true, y = explode())) // sollte true liefern, ohne Exception
-    println("\nFall 2:")
-    try {
-      println(u.or(x = false, y = explode())) // sollte Exception werfen
-    } catch {
-      case e: Exception => println("Exception gefangen: " + e.getMessage)
+      loop(zahl - 1)
     }
 
-    println("\n---------Aufgabe 2----------")
-    println("param = -3 → " + u.myMethod(-3))
-    println("param = 0 → " + u.myMethod(0))
-    println("param = 5 → " + u.myMethod(5))
 
-    println("\n---------Aufgabe 3----------")
-    println("val x = " + u.aufgabe3())
+  // Helper to test short-circuit evaluation
+  def explode(): Boolean = throw new RuntimeException("Boom!")
 
-    println("\n---------Aufgabe 4----------")
-    println("squareUnder(2, 100) = " + u.squareUnder(2, 100))
-  }
+
 }

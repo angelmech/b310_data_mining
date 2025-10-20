@@ -64,12 +64,13 @@ class Uebung2 {
 
     // ---------------------------------------------------------------------------
 
-    //Aufgabe 5: Schreiben Sie eine Funktion teiler(zahl:Int):Int, die den größten ganzzahligen
+    //Aufgabe 5:
+    // Schreiben Sie eine Funktion teiler(zahl:Int):Int, die den größten ganzzahligen
     //Teiler der übergebenen Zahl– kleiner als die Zahl selbst – berechnet. Das heißt, wird eine
     //Primzahl übergeben, so gibt die Funktion 1 zurück, ist es keine Primzahl den
     //entsprechenden Teiler
     def teiler(zahl: Int): Int = {
-      @annotation.tailrec
+      @tailrec
       def loop(i: Int): Int =
         if (i == 1)
           1
@@ -82,8 +83,30 @@ class Uebung2 {
       loop(zahl - 1)
     }
 
+  //Aufgabe 6: Schreiben Sie eine Funktion, quersumme mit der folgenden Signatur: def
+  //quersumme(zahl:Int):Int. Sie soll die Quersumme der Zahl berechnen, die an die Funktion
+  //übergeben wurde.
 
-  // Helper to test short-circuit evaluation
+  def quersumme(zahl:Int):Int = {
+    //quersumme ist z.b.: zahl=3160 --> quersumme = 3+1+6+0 = 10
+    //bei negativer zahl: -57 -> 5+7 = 12
+    val absolutZahl = math.abs(zahl)
+    if (absolutZahl == 0)
+      0
+    else {
+      (absolutZahl % 10) + quersumme(absolutZahl / 10)
+      // durch modulo 10 bleibt letzte ziffer übrig
+    }
+  }
+
+
+
+
+
+
+
+
+  // zum testen der short-circuit evaluation
   def explode(): Boolean = throw new RuntimeException("Boom!")
 
 

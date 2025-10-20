@@ -39,4 +39,16 @@ class Uebung2Spec extends AnyFunSuite {
     assert(u.teiler(10) === 5)   // 5 divides 10
     assert(u.teiler(12) === 6)   // 6 divides 12
   }
+
+  // Aufgabe 6
+  test("quersumme()") {
+    assert(u.quersumme(-57) === 12) // absolutwert 57 -> 5 + 7 = 12
+    assert(u.quersumme(1234) === 10)
+    // quersumme(1234)
+    //→ 4 + quersumme(123)
+    //→ 4 + (3 + quersumme(12))
+    //→ 4 + (3 + (2 + quersumme(1)))
+    //→ 4 + (3 + (2 + (1 + quersumme(0))))
+    //→ 4 + 3 + 2 + 1 = 10
+  }
 }

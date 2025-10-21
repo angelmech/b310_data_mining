@@ -51,4 +51,9 @@ class Uebung2Spec extends AnyFunSuite {
     //→ 4 + (3 + (2 + (1 + quersumme(0))))
     //→ 4 + 3 + 2 + 1 = 10
   }
+
+  // Aufgabe 7
+  test("fibo") {
+    assert(u.fibo(10) === 55)
+  }
 }

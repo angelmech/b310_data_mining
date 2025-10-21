@@ -86,7 +86,6 @@ class Uebung2 {
   //Aufgabe 6: Schreiben Sie eine Funktion, quersumme mit der folgenden Signatur: def
   //quersumme(zahl:Int):Int. Sie soll die Quersumme der Zahl berechnen, die an die Funktion
   //übergeben wurde.
-
   def quersumme(zahl:Int):Int = {
     //quersumme ist z.b.: zahl=3160 --> quersumme = 3+1+6+0 = 10
     //bei negativer zahl: -57 -> 5+7 = 12
@@ -98,6 +97,45 @@ class Uebung2 {
       // durch modulo 10 bleibt letzte ziffer übrig
     }
   }
+
+
+  //Aufgabe 7: Fibonacci -> fibo(X) funktion, die für eine beliebige Zahl X, die Fibonacci-Zahl
+  //berechnet.
+  // fibo: 0, 1, 1, 2, 3, 5, 8, 13, ...
+  def fibo(x: Int):Int = {
+    if (x==0)
+      0
+    else if (x==1)
+      1
+    else fibo(x-1) + fibo(x-2)
+  }
+
+
+
+  // Aufgabe 8: Wandeln Sie die Funktion aus Aufgabe 2 so um, dass der Aufruf der Funktion
+  //fibo(100) zu einem richtigen Ergebnis kommt.
+  def fiboTail(x: Int): Int = {
+    @tailrec
+    def loop(n: Int, current: Int, next: Int): Int = {
+      if (n == 0)
+        current
+      else {
+        loop(n - 1, current = next, next = current + next)
+      }
+    }
+    loop(x, 0, 1)
+  }
+  // z.b.: fibo(5) → loop(5, 0, 1) , initial call:
+  // 1st recursion: n != 0, also machen wir call: loop(n - 1, current = next, next = current + next)
+  // jetzt haben wir loop(4, 1, 1)
+  // after 2nd recursion: loop(3, 1, 2)
+  // after 3rd rec.: loop(2, 2, 3)
+  // after 4th rec.: loop(1, 3, 5)
+  // after 5th rec.: loop(0, 5, 8)
+  // loop(0, 5, 8) -> Base Case -> return current = 5
+  // Fibonacci(x=5) = 5
+
+
 
 
 

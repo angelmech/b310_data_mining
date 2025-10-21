@@ -1,3 +1,5 @@
+package uebung
+
 import scala.annotation.tailrec
 
 class Uebung2 {

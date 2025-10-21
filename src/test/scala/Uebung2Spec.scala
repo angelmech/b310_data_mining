@@ -56,4 +56,10 @@ class Uebung2Spec extends AnyFunSuite {
   test("fibo") {
     assert(u.fibo(10) === 55)
   }
+
+
+  // Aufgabe 7
+  test("fiboTailRecursive") {
+    assert(u.fiboTail(10) === 55)
+  }
 }

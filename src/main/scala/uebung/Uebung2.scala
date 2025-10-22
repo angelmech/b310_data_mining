@@ -1,6 +1,7 @@
 package uebung
 
 import scala.annotation.tailrec
+import scala.collection.IterableOnce.iterableOnceExtensionMethods
 
 class Uebung2 {
     // Aufgabe 1:
@@ -136,6 +137,62 @@ class Uebung2 {
   // after 5th rec.: loop(0, 5, 8)
   // loop(0, 5, 8) -> Base Case -> return current = 5
   // Fibonacci(x=5) = 5
+
+//----------------------------------------------------------------------
+
+  //Aufgabe 9: 2520 ist die kleinste Zahl, die durch jede Zahl von 1-10 ohne Rest geteilt werden
+  //kann. Was ist die kleinste positive Zahl, die durch alle Zahlen von 1-20 ohne Rest teilbar ist?
+  //(Projekt Euler Aufgabe 5)
+  //Schreiben Sie eine Funktion, die in Abhängigkeit von einer Zahl X berechnet, welches die
+  //kleinste Zahl ist, die durch alle Zahlen von 1..X ohne Rest teilbar ist.
+  //(Als kleiner Tipp: Schreiben Sie erst eine Funktion, die testet, ob eine Zahl durch eine Menge
+  //von Zahl teilbar ist oder nicht. Dann lassen rufen Sie die Funktion solange auf, bis sie einen
+  //entsprechenden Wert gefunden haben.)
+  //Die Zahl ist: 232792560
+
+
+  //Die kleinste Zahl, die durch alle Zahlen von 1 bis X teilbar ist,
+  //ist das kleinste gemeinsame Vielfache (kgV) dieser Zahlen.
+  // kgv(a,b) = a*b/ggT(a,b)    ,   ggT = gcd(greatest common divisor)
+
+  def kleinsteTeilbareZahl(x: Int): Long = {
+
+    def istDurchAlleTeilbar(zahl: Long): Boolean = {
+      @tailrec
+      def pruefeTeiler(teiler: Int): Boolean = {
+        if (teiler > x) true
+        else if (zahl % teiler != 0) false
+        else pruefeTeiler(teiler + 1)
+      }
+      pruefeTeiler(1)
+    }
+
+    @tailrec
+    def findeKandidat(kandidat: Long): Long = {
+      if (istDurchAlleTeilbar(kandidat)) kandidat
+      else findeKandidat(kandidat + 1)
+    }
+    findeKandidat(1)
+  }
+
+  // side note: one liner für teilbar check
+  def istDurchAlleTeilbar2(x:Int,zahl:Int):Boolean={
+    (1 to zahl).forall(divisor => x % divisor == 0)
+  }
+
+  // effizientere version mit gcd und lcm:
+  def kleinsteTeilbareZahlEffizient(obergrenze: Int): Long = {
+    @tailrec
+    def ggt(a: Long, b: Long): Long =
+      if (b == 0) a
+      else ggt(b, a % b)
+    def kgv(a: Long, b: Long): Long =
+      (a * b) / ggt(a, b)
+    // Reduziere alle Zahlen von 1..obergrenze zu ihrem KGV
+    (1L to obergrenze.toLong).reduce(kgv)
+  }
+
+
 
 
 

@@ -60,8 +60,15 @@ class Uebung2Spec extends AnyFunSuite {
   }
 
 
-  // Aufgabe 7
+  // Aufgabe 8
   test("fiboTailRecursive") {
     assert(u.fiboTail(10) === 55)
+  }
+
+
+  // Aufgabe 9
+  test("kleinste teilabre zahl") {
+    assert(u.kleinsteTeilbareZahl(20) === 232792560)
+    assert(u.kleinsteTeilbareZahlEffizient(20) === 232792560)
   }
 }

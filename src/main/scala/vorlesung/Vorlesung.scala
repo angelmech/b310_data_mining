@@ -1,5 +1,7 @@
 package vorlesung
 
+import scala.annotation.tailrec
+
 class Vorlesung {
 
   def multiple(x:Int):Int = {
@@ -25,9 +27,39 @@ class Vorlesung {
     else iter_sqrt(x, improve)
   }
 
+
   // Exercise 3_2 Folie 14, What is value of "result"?
   // Antwort: 16
 
+
+  // ---------------------------
+  // Aufgabe: Prüfen, ob eine Zahl Primzahl ist
+  // ---------------------------
+  def primeTest(x:Long):Boolean={
+    if (x <= 1) false
+    else {
+      @tailrec
+      def primeHelper(divisor: Long): Boolean = {
+        if (divisor * divisor > x) true
+        else if (x % divisor == 0) false
+        else primeHelper(divisor - 1)
+      }
+      primeHelper(2)
+    }
+  }
+
+  // ---------------------------
+  // Aufgabe: N-te Primzahl berechnen
+  // ---------------------------
+  def nthPrime(n: Int): Long = {
+    @tailrec
+    def loop(current: Long, count: Int): Long = {
+      if (count == n) current - 1
+      else if (primeTest(current)) loop(current + 1, count + 1)
+      else loop(current + 1, count)
+    }
+    loop(2, 0)
+  }
 
 
 }

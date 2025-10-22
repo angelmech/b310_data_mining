@@ -13,6 +13,14 @@ class Vorlesung {
       else multiple(x-1)
   }
 
+  // mit Pattern Matching ->
+  def multiple2(x: Int): Int = x match {
+    case 0 => 0
+    case _ if ((x % 3 == 0) || (x % 5 == 0)) => (multiple2(x - 1) + x)
+    case _ if (x>0) => multiple2(x-1)
+    case _ => throw new Error("no negative numbers!")
+  }
+
 
   //newtons approximation procedure
   def iter_sqrt(x: Double, estimate:Double):Double = {
@@ -60,6 +68,7 @@ class Vorlesung {
     }
     loop(2, 0)
   }
+
 
 
 }

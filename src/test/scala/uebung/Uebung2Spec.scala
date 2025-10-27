@@ -71,4 +71,8 @@ class Uebung2Spec extends AnyFunSuite {
     assert(u.kleinsteTeilbareZahl(20) === 232792560)
     assert(u.kleinsteTeilbareZahlEffizient(20) === 232792560)
   }
+
+  test("summe prime") {
+    assert(u.summePrimzahlen(2000000) === 142913828922L)
+  }
 }

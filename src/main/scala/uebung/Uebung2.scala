@@ -192,6 +192,40 @@ class Uebung2 {
     (1L to obergrenze.toLong).reduce(kgv)
   }
 
+  //----------------------------------------------------------------------
+
+  //Aufgabe 10: Die Summe aller Primzahlen der Zahlen bis 10 ist: 2+3+5+7 =17. Schreiben Sie
+  //eine Funktion, die die Summe aller Primzahlen unter 2 Millionen bildet (Ergebnis:
+  //12272577818052).
+  // das ist eig. die richtige Lösung -> 142913828922,
+  // source: https://projecteuler.net/problem=10 + https://github.com/lucky-bai/projecteuler-solutions/blob/master/Solutions.md
+
+  def summePrimzahlen(limit: Int): Long = {
+
+    def istPrimzahl(n: Int): Boolean = {
+      @annotation.tailrec
+      def pruefeTeiler(teiler: Int): Boolean = {
+        if (teiler * teiler > n) true
+        else if (n % teiler == 0) false
+        else pruefeTeiler(teiler + 1)
+      }
+      if (n < 2) false
+      else pruefeTeiler(2)
+    }
+
+    @annotation.tailrec
+    def summe(n: Int, akk: Long): Long = {
+      if (n > limit)
+        akk
+      else if (istPrimzahl(n))
+        summe(n + 1, akk + n)
+      else summe(n + 1, akk)
+    }
+    summe(2, 0L)
+  }
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 package uebung
 
 import scala.annotation.tailrec
-import scala.collection.IterableOnce.iterableOnceExtensionMethods
+import scala.util.Random
 
 class Uebung2 {
     // Aufgabe 1:
@@ -224,10 +224,35 @@ class Uebung2 {
     summe(2, 0L)
   }
 
+  //----------------------------------------------------------------------
 
+  //Aufgabe 11: Implementieren Sie die Methode calculatePi, die auf Basis Zufall die Zahl Pi
+  //ermittelt (Monte Carlo Algorithmus – Nachlesbar in Wikipedia) Verwenden Sie dabei keine
+  //Variablen sondern nur Rekursionen. Zufallszahlen erzeugen Sie mit der Klasse Random, die
+  //Funktion nextDouble enthält:
+  //import scala.util.Random
+  //val randGen= Random
 
+  /**
+   * Berechnet Pi mittels Monte-Carlo-Methode ohne Variablen, nur mit Rekursion.
+   * @param n Anzahl der zu werfenden Punkte
+   * @return Approximation von Pi
+   */
+  def calculatePi(n: Int): Double = {
+    val randGen = new Random()
 
-
+    @tailrec
+    def loop(remaining: Int, inside: Int): Int = {
+      if (remaining == 0) inside
+      else {
+        val x = randGen.nextDouble()
+        val y = randGen.nextDouble()
+        val hit = if (x * x + y * y <= 1) 1 else 0
+        loop(remaining - 1, inside + hit)
+      }
+    }
+    4.0 * (loop(n, 0).toDouble / n)
+  }
 
 
 

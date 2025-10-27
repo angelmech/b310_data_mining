@@ -72,7 +72,20 @@ class Uebung2Spec extends AnyFunSuite {
     assert(u.kleinsteTeilbareZahlEffizient(20) === 232792560)
   }
 
+  // Aufgabe 10
   test("summe prime") {
     assert(u.summePrimzahlen(2000000) === 142913828922L)
   }
+
+  // Aufgabe 11
+  test("calculatePi should approximate Pi") {
+    val n = 100000
+    val piEstimate = u.calculatePi(n)
+    val expectedPi = 3.141592
+    val epsilon = 0.01 // erlaubte Abweichung
+
+    assert(math.abs(piEstimate - expectedPi) < epsilon,
+      s"Pi estimate $piEstimate is not within $epsilon of $expectedPi")
+  }
+
 }

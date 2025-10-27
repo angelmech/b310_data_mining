@@ -2,7 +2,7 @@ package uebung
 
 import org.scalatest.funsuite.AnyFunSuite
 
-class Uebung2Spec extends AnyFunSuite {
+class Uebung2Test extends AnyFunSuite {
 
   val u = new Uebung2
 

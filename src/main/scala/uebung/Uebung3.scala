@@ -73,6 +73,37 @@ class Uebung3 {
     loop(0)
   }
 
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 4: Schreiben Sie eine Funktion, quersumme mit der folgenden Signatur: def
+  //quersumme(zahl:Int):Int. Sie soll die Quersumme der Zahl berechnen, die an die Funktion
+  //übergeben wurde.
+
+  def quersumme(zahl:Int):Int={
+    // bsp. quersumme: 33456 -> 3+3+4+5+6
+    if(zahl==0)0
+    else quersumme(zahl%10).abs + quersumme(zahl/10)
+    // 6 + 3345
+    // 5 + 334
+    // 4 + 33
+    // 3 + 3
+    // 3 + 0
+  }
+
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 5: 2520 ist die kleinste Zahl, die durch jede Zahl von 1-10 ohne Rest geteilt werden
+  //kann. Was ist die kleinste positive Zahl, die durch alle Zahlen von 1-20 ohne Rest teilbar ist?
+  //(Projekt Euler Aufgabe 5)
+  //Schreiben Sie eine Funktion, die in Abhängigkeit von einer Zahl X berechnet, welches die
+  //kleinste Zahl ist, die durch alle Zahlen von 1..X ohne Rest teilbar ist.
+  //(Als kleiner Tipp: Schreiben Sie erst eine Funktion, die testet, ob eine Zahl durch eine Menge
+  //von Zahl teilbar ist oder nicht. Dann lassen rufen Sie die Funktion solange auf, bis sie einen
+  //entsprechenden Wert gefunden haben.)
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 package uebung
 
 import scala.annotation.tailrec
+import scala.util.Random
 
 class Uebung3 {
 
@@ -127,6 +128,84 @@ class Uebung3 {
     // Start search at 'limit' (the smallest possible candidate)
     loop(X)
   }
+
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 6: Implementieren Sie die Methode calculatePi, die auf Basis Zufall die Zahl Pi
+  //ermittelt (Monte Carlo Algorithmus – Nachlesbar in Wikipedia) Verwenden Sie dabei keine
+  //Variablen sondern nur Rekursionen. Zufallszahlen erzeugen Sie mit der Klasse Random, die
+  //Funktion nextDouble enthält:
+  //import scala.util.Random
+  // val x= new Random
+  // val y= new Random
+  //Verwenden Sie für die Lösungen nur Elemente aus der Funktionalen Programmierung, d.h.
+  //hier nur unveränderliche Variablen und Rekursionen.
+
+  /**
+   * Berechnet Pi mittels Monte-Carlo-Methode ohne Variablen, nur mit Rekursion.
+   *
+   * @param n Anzahl der zu werfenden Punkte
+   * @return Approximation von Pi
+   */
+  def calculatePi(n: Int): Double = {
+    val rand = new Random()
+
+    @tailrec
+    def loop(remaining: Int, inside: Int): Int = {
+      if (remaining == 0) inside
+      else {
+        val x = rand.nextDouble()
+        val y = rand.nextDouble()
+        val hit = if (x * x + y * y <= 1) 1 else 0
+        loop(remaining - 1, inside + hit)
+      }
+    }
+
+    4.0 * (loop(n, 0).toDouble / n)
+  }
+
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 7: Gegeben sei die folgende grundlegende Definition einer Liste von Integern
+  //(IntList). In der Datenstruktur werden Zahlen (Integer) als verkettete Liste gespeichert. Sie
+  //enthält die Operationen isEmpty, head, tail, prefix, map und flatMap mit den folgenden
+  //Implementierungen:
+  //abstract class IntList{
+  //    def isEmpty:Boolean
+  //    def head:Integer
+  //    def tail:IntList
+  //    def prefix(elem:IntList):IntList= elem match {
+  //            case Empty => this
+  //            case Cons(h,t) => Cons(h, prefix(t))
+  //    }
+  //}
+  //
+  //case object Empty extends IntList{
+  //    def isEmpty = true
+  //    def head= throw new Error ("List is Empty")
+  //    def tail= throw new Error ("List is Empty")
+  //}
+  //case class Cons(head:Integer, tail:IntList) extends IntList{
+  //    def isEmpty= false
+  //}
+  //
+  //a) Fügen Sie Klasse IntList in ein Worksheet ein und schreiben Sie die Funktion prefix so
+  //um, dass Sie in den Klassen Empty und Cons implementiert ist. Das IntelliJ-Worksheet
+  //erkennt dies sonst als fehlerhaft, was es aber nicht ist.
+  //
+  //b) Schreiben Sie eine Funktion def average(l:IntList):Double, die aus einer Liste von Zahlen
+  //einen Mittelwert bildet. Tipp: Aggregieren sie die Summe und die Anzahl einfach über ein
+  //Tupel vom Typ (Int,Int).
+
+  def sd()={
+
+
+
+  }
+
+
+
+
 
 
 

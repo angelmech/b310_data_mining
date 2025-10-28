@@ -1,5 +1,7 @@
 package uebung
 
+import scala.annotation.tailrec
+
 class Uebung3 {
 
   //Aufgabe 1: Schreiben Sie eine Funktion def convert(convertTo:String, temperature: Int):
@@ -26,6 +28,53 @@ class Uebung3 {
     case "kelvin" => (convertTo, Math.round(temperature + 273.15).toInt)
     case _ => throw new IllegalArgumentException(s"Unbekannte Einheit: $convertTo")
   }
+
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 2: Wandeln Sie die Funktion aus 1 so um, dass sie der folgenden Signatur
+  //entspricht: def convert(change:(String, Double)):(String, Double). Verwenden Sie für das
+  //Extrahieren des Tupels ebenfalls Pattern Matching.
+  def convert(change:(String, Double)):(String, Double) = change match {
+    case (unit, temp) => unit.toLowerCase() match {
+      case "fahrenheit" => (unit, temp * 9.0 / 5 + 32)
+      case "reamur" => (unit, temp * 4.0 / 5)
+      case "kelvin" => (unit, temp + 273.15)
+      case _ => throw new IllegalArgumentException(s"Unbekannte Einheit: $unit")
+    }
+  }
+
+  //----------------------------------------------------------------------------------------------------
+
+  //Aufgabe 3: Gegeben sei der folgende Programmcode:
+  //def printHello(n:Int):Unit= {
+  // def loop(i:Int):Unit= i match{
+  // case n => println("")
+  // case _ => println("Hello "); loop(i+1)
+  // }
+  // loop(0)
+  // }
+  //Die Funktion soll eine bestimmte Anzahl des Strings “Hello “ auf die Konsole schreiben und
+  //die Zeile am Ende der Ausgabe mit einem line feed beenden.
+  //Schauen Code an und überlegen Sie, ob die Funktion auch das gewünschte Ergebnis liefert.
+  //Falls nicht, überlegen Sie, wie Sie die Funktion anpassen müssen, damit eine entsprechende
+  //Ausgabe erfolgt.
+
+  //Lösung:
+  //case n => in Scala bedeutet: match auf eine Variable n, nicht auf den Wert der äußeren n.
+  //Das führt dazu, dass immer case n zutrifft, weil der Matcher die Variable bindet.
+  //Ergebnis: die Schleife endet sofort → keine Ausgabe
+
+  def printHello(n: Int): Unit = {
+    @tailrec
+    def loop(i: Int): Unit = i match {
+      case _ if i>=n => println()
+      case _ => println("Hello "); loop(i+1)
+    }
+    loop(0)
+  }
+
+
+
 
 
 }

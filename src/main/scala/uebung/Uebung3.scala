@@ -100,8 +100,33 @@ class Uebung3 {
   //(Als kleiner Tipp: Schreiben Sie erst eine Funktion, die testet, ob eine Zahl durch eine Menge
   //von Zahl teilbar ist oder nicht. Dann lassen rufen Sie die Funktion solange auf, bis sie einen
   //entsprechenden Wert gefunden haben.)
+  def euler5(X: Int): Long = {
+    /**
+     * Checks whether a given number `n` is divisible by all integers
+     * from 1 to X.
+     */
+    def isDivisibleByAll(n: Long): Boolean = {
+      @tailrec
+      def checkDivisor(d: Int): Boolean = {
+        if (d > X) true // base case: all divisors checked successfully
+        else if (n % d != 0) false // found divisor that doesn't divide evenly
+        else checkDivisor (d + 1) // check next divisor
+    }
+      checkDivisor(1)
+    }
 
+    /**
+     * Recursively searches for the smallest number divisible by all 1..limit.
+     * Starts at `limit` and increases in steps of `limit` for efficiency.
+     */
+    @tailrec
+    def loop(n: Long): Long =
+      if (isDivisibleByAll(n)) n
+      else loop(n + X)
 
+    // Start search at 'limit' (the smallest possible candidate)
+    loop(X)
+  }
 
 
 

@@ -186,8 +186,10 @@ class Uebung2 {
     def ggt(a: Long, b: Long): Long =
       if (b == 0) a
       else ggt(b, a % b)
+
     def kgv(a: Long, b: Long): Long =
       (a * b) / ggt(a, b)
+
     // Reduziere alle Zahlen von 1..obergrenze zu ihrem KGV
     (1L to obergrenze.toLong).reduce(kgv)
   }

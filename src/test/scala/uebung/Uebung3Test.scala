@@ -43,6 +43,11 @@ class Uebung3Test extends AnyFunSuite {
     u.printHello(3)
   }
 
+  // Aufgabe 5
+  test("kleinste teilbare zahl") {
+    assert(u.euler5(20) === 232792560)
+  }
+
 
 
 

@@ -188,28 +188,53 @@ class Uebung3 {
   //case class Cons(head:Integer, tail:IntList) extends IntList{
   //    def isEmpty= false
   //}
-  //
+
   //a) Fügen Sie Klasse IntList in ein Worksheet ein und schreiben Sie die Funktion prefix so
   //um, dass Sie in den Klassen Empty und Cons implementiert ist. Das IntelliJ-Worksheet
   //erkennt dies sonst als fehlerhaft, was es aber nicht ist.
-  //
+
+  abstract class IntList {
+    def isEmpty: Boolean
+    def head: Integer
+    def tail: IntList
+    def prefix(elem: IntList): IntList
+  }
+
+  case object Empty extends IntList {
+    def isEmpty = true
+    def head = throw new Error("List is Empty")
+    def tail = throw new Error("List is Empty")
+    def prefix(elem: IntList): IntList = elem
+  }
+
+  case class Cons(head: Integer, tail: IntList) extends IntList {
+    def isEmpty = false
+    def prefix(elem: IntList): IntList = elem match {
+      case Empty => this
+      case Cons(h, t) => Cons(h, prefix(t))
+    }
+  }
+
   //b) Schreiben Sie eine Funktion def average(l:IntList):Double, die aus einer Liste von Zahlen
   //einen Mittelwert bildet. Tipp: Aggregieren sie die Summe und die Anzahl einfach über ein
   //Tupel vom Typ (Int,Int).
 
-  def sd()={
+  // Bsp.:
+  // val l = Cons(3, Cons(5, Cons(7, Empty)))
+  // average = (3+5+7) / 3 = 5.0
+  def average(l:IntList):Double = {
+    def aggregate(list: IntList):(Int,Int) = list match {
+      case Empty => (0,0)
+      case Cons(head,tail) =>
+        // rekursiv: berechne Summe und Anzahl für den Rest der Liste
+        val (sumTail,countTail) = aggregate(tail)
+        // füge das aktuelle Element hinzu und gib das neue (sum, count)-Tupel zurück
+        (head + sumTail, 1 + countTail) // Rückgabewert des gesamten case head + sumTail → die neue Summe, 1 + countTail → die neue Anzahl
+    }
 
-
-
+    val (sum, count) = aggregate(l)
+    if (count==0) 0.0 //Schutz gegen eine leere Liste (Empty)
+    else sum.toDouble / count // durchschnitt berechnen in Gleitkommadivision
   }
-
-
-
-
-
-
-
-
-
 
 }

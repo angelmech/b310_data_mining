@@ -48,8 +48,18 @@ class Uebung3Test extends AnyFunSuite {
     assert(u.euler5(20) === 232792560)
   }
 
+  // Aufgabe 7
+  test("average of IntList") {
+    val list1 = u.Cons(10, u.Cons(20, u.Cons(30, u.Empty))) // Mittelwert = 20.0
+    val list2 = u.Cons(5, u.Cons(15, u.Cons(25, u.Cons(35, u.Empty)))) // Mittelwert = 20.0
+    val single = u.Cons(42, u.Empty) // Mittelwert = 42.0
+    val empty = u.Empty // Mittelwert = 0.0 (Sonderfall)
 
-
+    assert(u.average(list1) === 20.0)
+    assert(u.average(list2) === 20.0)
+    assert(u.average(single) === 42.0)
+    assert(u.average(empty) === 0.0)
+  }
 
 
 }

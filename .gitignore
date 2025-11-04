@@ -1,0 +1,27 @@
+# Build artifacts
+target/
+project/target/
+project/project/
+export/
+*.class
+*.log
+
+# SBT metadata
+*.xml
+*.json
+*.iml
+*.idea/
+.metals/
+.bloop/
+.vscode/
+
+# IntelliJ
+.idea/
+*.iml
+modules.xml
+workspace.xml
+
+# Metals / Bloop (Scala)
+.bloop/
+.metals/
+

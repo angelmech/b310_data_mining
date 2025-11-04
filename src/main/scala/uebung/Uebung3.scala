@@ -54,16 +54,17 @@ class Uebung3 {
   // }
   // loop(0)
   // }
-  //Die Funktion soll eine bestimmte Anzahl des Strings “Hello “ auf die Konsole schreiben und
+  //Die Funktion soll eine bestimmte Anzahl des Strings „Hello “ auf die Konsole schreiben und
   //die Zeile am Ende der Ausgabe mit einem line feed beenden.
   //Schauen Code an und überlegen Sie, ob die Funktion auch das gewünschte Ergebnis liefert.
   //Falls nicht, überlegen Sie, wie Sie die Funktion anpassen müssen, damit eine entsprechende
   //Ausgabe erfolgt.
 
   //Lösung:
-  //case n => in Scala bedeutet: match auf eine Variable n, nicht auf den Wert der äußeren n.
-  //Das führt dazu, dass immer case n zutrifft, weil der Matcher die Variable bindet.
-  //Ergebnis: die Schleife endet sofort → keine Ausgabe
+  //Hier wird beim Pattern Matching nicht mit einer Konstante gematcht sondern mit einer
+  //Variable, d.h. diese Bedingung wird immer erfüllt. Dadurch kommt es nur zu einem println
+  //und ein “Hello “ wird nicht ausgegeben. Um dies zu ändern, kann entweder die Variable n
+  //groß geschrieben werden oder es wird ein Guard (if) eingebaut, der überprüft, ob (i==n) ist.
 
   def printHello(n: Int): Unit = {
     @tailrec
@@ -80,8 +81,8 @@ class Uebung3 {
   //quersumme(zahl:Int):Int. Sie soll die Quersumme der Zahl berechnen, die an die Funktion
   //übergeben wurde.
 
+  /* ergebnis aus uebung2
   def quersumme(zahl:Int):Int={
-    // bsp. quersumme: 33456 -> 3+3+4+5+6
     if(zahl==0)0
     else quersumme(zahl%10).abs + quersumme(zahl/10)
     // 6 + 3345
@@ -89,6 +90,10 @@ class Uebung3 {
     // 4 + 33
     // 3 + 3
     // 3 + 0
+  }*/
+  def quersumme(x:Int):Int= x match
+  { case 0 => 0
+    case _ => x % 10 + quersumme(x/10)
   }
 
   //----------------------------------------------------------------------------------------------------
@@ -101,33 +106,28 @@ class Uebung3 {
   //(Als kleiner Tipp: Schreiben Sie erst eine Funktion, die testet, ob eine Zahl durch eine Menge
   //von Zahl teilbar ist oder nicht. Dann lassen rufen Sie die Funktion solange auf, bis sie einen
   //entsprechenden Wert gefunden haben.)
-  def euler5(X: Int): Long = {
-    /**
-     * Checks whether a given number `n` is divisible by all integers
-     * from 1 to X.
-     */
-    def isDivisibleByAll(n: Long): Boolean = {
-      @tailrec
-      def checkDivisor(d: Int): Boolean = {
-        if (d > X) true // base case: all divisors checked successfully
-        else if (n % d != 0) false // found divisor that doesn't divide evenly
-        else checkDivisor (d + 1) // check next divisor
-    }
-      checkDivisor(1)
-    }
 
-    /**
-     * Recursively searches for the smallest number divisible by all 1..limit.
-     * Starts at `limit` and increases in steps of `limit` for efficiency.
-     */
-    @tailrec
-    def loop(n: Long): Long =
-      if (isDivisibleByAll(n)) n
-      else loop(n + X)
+  // musterlösung:
+  def searchNumber(maxDiv:Int):Int =
+    searchNumber2(maxDiv,1) // Starte bei 1 und suche die erste Zahl, die alle Bedingungen erfüllt.
 
-    // Start search at 'limit' (the smallest possible candidate)
-    loop(X)
+  @tailrec
+  private def searchNumber2(maxDiv:Int, z:Int):Int=
+    if (checkDiv(maxDiv,z)) //Prüft, ob z durch alle Zahlen von 1 bis maxDiv teilbar ist (mittels checkDiv).
+      z
+    else searchNumber2(maxDiv, z+1)
+
+  //Diese Funktion prüft, ob number durch alle Zahlen maxnum, maxnum-1, …, 1 teilbar ist
+  @tailrec
+  private def checkDiv(maxnum:Int, number:Int):Boolean= maxnum match{
+    case 1 => true //Basisfall: alles geprüft → true
+    case _ => if (number % maxnum ==0) checkDiv(maxnum-1, number) //nicht teilbar → false
+    else false //prüfe weiter mit maxnum - 1
   }
+  //Bsp: checkDiv(3, 6) prüft:
+  //6 % 3 == 0 → weiter
+  //6 % 2 == 0 → weiter
+  //6 % 1 == 0 → true → Ergebnis true
 
   //----------------------------------------------------------------------------------------------------
 

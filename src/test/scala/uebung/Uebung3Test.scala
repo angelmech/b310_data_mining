@@ -45,7 +45,7 @@ class Uebung3Test extends AnyFunSuite {
 
   // Aufgabe 5
   test("kleinste teilbare zahl") {
-    assert(u.euler5(20) === 232792560)
+    assert(u.searchNumber(20) === 232792560)
   }
 
   // Aufgabe 7

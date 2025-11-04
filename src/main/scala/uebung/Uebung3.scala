@@ -141,27 +141,24 @@ class Uebung3 {
   //Verwenden Sie für die Lösungen nur Elemente aus der Funktionalen Programmierung, d.h.
   //hier nur unveränderliche Variablen und Rekursionen.
 
-  /**
-   * Berechnet Pi mittels Monte-Carlo-Methode ohne Variablen, nur mit Rekursion.
-   *
-   * @param n Anzahl der zu werfenden Punkte
-   * @return Approximation von Pi
-   */
-  def calculatePi(n: Int): Double = {
-    val rand = new Random()
+  val x= new Random
+  val y= new Random
 
-    @tailrec
-    def loop(remaining: Int, inside: Int): Int = {
-      if (remaining == 0) inside
-      else {
-        val x = rand.nextDouble()
-        val y = rand.nextDouble()
-        val hit = if (x * x + y * y <= 1) 1 else 0
-        loop(remaining - 1, inside + hit)
+  def calculatePi(count:Int):Double= {
+    val (in,out) = calculatePiHelper(count,0,0)
+    in.toDouble/count*4
+  }
+  def calculatePiHelper(count:Int, in:Int, out:Int):(Int,Int)= {
+    count match {
+      case 0 => (in,out)
+      case _ => {
+        val x_coord = x.nextDouble
+        val y_coord = y.nextDouble
+        val hypothenuse= Math.sqrt((x_coord*x_coord)+(y_coord*y_coord))
+        if (hypothenuse>1) calculatePiHelper(count-1, in,out+1)
+        else calculatePiHelper(count-1, in+1,out)
       }
     }
-
-    4.0 * (loop(n, 0).toDouble / n)
   }
 
   //----------------------------------------------------------------------------------------------------
@@ -223,18 +220,13 @@ class Uebung3 {
   // val l = Cons(3, Cons(5, Cons(7, Empty)))
   // average = (3+5+7) / 3 = 5.0
   def average(l:IntList):Double = {
-    def aggregate(list: IntList):(Int,Int) = list match {
-      case Empty => (0,0)
-      case Cons(head,tail) =>
-        // rekursiv: berechne Summe und Anzahl für den Rest der Liste
-        val (sumTail,countTail) = aggregate(tail)
-        // füge das aktuelle Element hinzu und gib das neue (sum, count)-Tupel zurück
-        (head + sumTail, 1 + countTail) // Rückgabewert des gesamten case head + sumTail → die neue Summe, 1 + countTail → die neue Anzahl
+    @tailrec
+    def aggregate(list: IntList, sum: Int, count: Int):(Int,Int) = list match {
+      case Empty => (sum, count)
+      case Cons(h, t) => aggregate(t,sum + h, count + 1)
     }
-
-    val (sum, count) = aggregate(l)
-    if (count==0) 0.0 //Schutz gegen eine leere Liste (Empty)
-    else sum.toDouble / count // durchschnitt berechnen in Gleitkommadivision
+    val (sum, count) = aggregate(l, 0, 0)
+    sum.toDouble / count
   }
 
 }

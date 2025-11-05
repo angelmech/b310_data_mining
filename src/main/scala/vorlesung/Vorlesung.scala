@@ -4,6 +4,13 @@ import scala.annotation.tailrec
 
 class Vorlesung {
 
+  sealed trait IntList
+
+  case object Empty extends IntList
+
+  case class Cons(h: Int, t: IntList) extends IntList
+
+
   def multiple(x:Int):Int = {
     if (x<=0)
       0
@@ -70,5 +77,21 @@ class Vorlesung {
   }
 
 
+  //Given is the following List[Int]:
+  //(1::(2::(3::(4::(7::(9::(11::(7::(32::44)))))))))
+  //Write a function fold that aggregates the list by a function that
+  //is passed into (e.g. addition or multiplication) and a base
+  //element that is the starting point of the aggregation. What is
+  //the signature of that function?
+
+  //left to right
+  def fold(l:IntList, base: Int, aggFun:(Int,Int)=>Int):Int = {
+    case Empty => base
+    case Cons(head, tail) => fold(tail, aggFun(base, head), aggFun)
+      //right to left wäre:
+      // reduceFun(head, fold(tail,base,reduceFun))
+  }
+
+  //
 
 }

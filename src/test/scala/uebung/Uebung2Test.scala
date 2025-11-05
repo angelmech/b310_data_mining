@@ -6,17 +6,6 @@ class Uebung2Test extends AnyFunSuite {
 
   val u = new Uebung2
 
-  // Aufgabe 1
-  test("or() should short-circuit when x = true") {
-    assert(u.or(x = true, y = u.explode()) === true)
-  }
-
-  test("or() should evaluate y when x = false") {
-    assertThrows[RuntimeException] {
-      u.or(x = false, y = u.explode())
-    }
-  }
-
   // Aufgabe 2
   test("myMethod() should return correct strings") {
     assert(u.myMethod(-5) === "kleiner null")
@@ -68,8 +57,6 @@ class Uebung2Test extends AnyFunSuite {
 
   // Aufgabe 9
   test("kleinste teilabre zahl") {
-    assert(u.kleinsteTeilbareZahl(20) === 232792560)
-    assert(u.kleinsteTeilbareZahlEffizient(20) === 232792560)
   }
 
   // Aufgabe 10

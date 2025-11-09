@@ -42,11 +42,16 @@ def createRange(a: Int, b: Int): Set =
 def union(set1: Set, set2: Set): Set =
   x => contains(x, set1) || contains(x, set2)
 
-//TODO
-def toList(set:Set, a:Int, b:Int):List[Int]
 //list(1,2,3) == 1::2::3::list(), cons-operator(head::tail)
 //Aufzählungsliste: a::toList()
+def toList(set:Set, a:Int, b:Int):List[Int] = {
+  if (a>b) List() // base case: stop when range is done
+  else if (contains(a, set)) // check if current element is in set
+    a :: toList(set, a+1, b) // include it and recurse
+  else toList(set, a+1, b) // skip it and recurse
+}
 
 
 def set1 = createEmptySet
 val set2 = insert(4, set1)
+

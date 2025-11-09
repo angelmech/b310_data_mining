@@ -21,13 +21,13 @@
 // anonymous high order functions
 // man nutzt inheritance, skippt OOP
 
-type Set = Int => Boolean
+type Set = Int => Boolean //Set is any function that takes an Int and returns a Boolean
 
 def createEmptySet: Set =
-  x => false
+  x => false // erwartungswert: Int => Boolean (Set)
 
 def contains(i: Int, s: Set): Boolean =
-  s(i)
+  s(i) // int zu boolean, d.h. set(int) = boolean, erwartungswert: Boolean
 
 //insert returns a new function (Int => Boolean).
 //This function takes any integer x and says:
@@ -36,8 +36,10 @@ def contains(i: Int, s: Set): Boolean =
 def insert(i: Int, s: Set): Set =
   x => x==i || s(x) //man kann auch contains(x,s) schreiben
 
-def createRange(a: Int, b: Int): Set =
+def createRange(a: Int, b: Int): Set = {
   x => x>=a && x<=b
+  // return: Int => boolean, same as x => true && true
+}
 
 def union(set1: Set, set2: Set): Set =
   x => contains(x, set1) || contains(x, set2)

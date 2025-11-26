@@ -14,9 +14,8 @@ class Uebung2 {
   }
 
   def ex: Boolean = throw new Error("Dies ist ein Fehler")
-
-  or(x = true, y = ex)
-  or(ex, y = true)
+    //or(x = true, y = ex)
+    //or(ex, y = true)
 
 
   // ---------------------------------------------------------------------------

@@ -85,12 +85,13 @@ class Vorlesung {
   //the signature of that function?
 
   //left to right
+  /*
   def fold(l:IntList, base: Int, aggFun:(Int,Int)=>Int):Int = {
     case Empty => base
     case Cons(head, tail) => fold(tail, aggFun(base, head), aggFun)
       //right to left wäre:
       // reduceFun(head, fold(tail,base,reduceFun))
-  }
+  }*/
 
   //
 

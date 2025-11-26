@@ -26,10 +26,14 @@ val stundenProtokoll:List[(String, Int, List[Int])]= List(("Hans",1,List(7,9,4,1
 //sein, dass aus dem Namen und der Stundenanzahl besteht.
 
 // a)
-stundenProtokoll.map(x => (x._1, x._2, x._3.sum))
 def maxWorkPerWeek(l:List[(String, Int, List[Int])]):(String,Int,Int) =
   l.map(x => (x._1, x._2, x._3.sum)).reduce((x,y) => if (x._3 < y._3) y else x)
 maxWorkPerWeek(stundenProtokoll)
 
 // b)
-
+def maxWork(l:List[(String, Int, List[Int])]):(String,Int) =
+  val totalHours = l.map(x => (x._1, x._3.sum))
+    .groupBy(_._1).view
+    .mapValues(_.map(_._2).sum)
+  totalHours.reduce((x,y) => if (x._2<y._2) y else x)
+maxWork(stundenProtokoll)

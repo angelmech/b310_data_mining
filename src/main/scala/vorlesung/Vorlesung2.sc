@@ -37,7 +37,7 @@ def groupBy[T, U](in: Iterable[T], f: T => U):Map[U,List[T]]={
 }
 
 // variant 2: immutable map with for loop
-def groupBy[T, U](in: Iterable[T], f: T => U):Map[U,List[T]] = {
+def groupBy2[T, U](in: Iterable[T], f: T => U):Map[U,List[T]] = {
   var res= Map[U,List[T]]()
   for (el <-in) {
     val groupByValue= f(el)
@@ -47,7 +47,7 @@ def groupBy[T, U](in: Iterable[T], f: T => U):Map[U,List[T]] = {
   res.view.mapValues(_.reverse).toMap
 }
 
-def groupBy[T,U](in: Iterable[T], f: T => U):Map[U,List[T]] = {
+def groupBy3[T,U](in: Iterable[T], f: T => U):Map[U,List[T]] = {
   in.foldLeft( Map[ U, List[T] ] () ) { // das ist der base-Wert , hier startet man mit einem leeren Wert
     (map, elem) =>
       val groupByVal = f(elem)
@@ -70,9 +70,9 @@ def flatten(l:List[Any]):List[Any] = l match {
 // myFlatten vorteil folie 9 -> obere lösung checkt den Typ beim compilen
 // und wirft fehler -> besser
 
-val l = List(1,2,3)
-val l2 = List("a","b","c")
-l.map(x => l2.map(y=>(x,y))).flatten
+val l2 = List(1,2,3)
+val l3 = List("a","b","c")
+l2.map(x => l3.map(y=>(x,y))).flatten
 
 
 val db =List(("francesco", "bloodsports"), ("simon", "jamesBond"), ("marcus",

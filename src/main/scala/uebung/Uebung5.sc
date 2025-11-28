@@ -35,11 +35,36 @@ listB.flatMap(x => List(x,x)) // für jedes x muss (x, x)
 
 //---------------------------------------------------------------------------------------
 // 1.c) Gegeben seien die beiden folgenden Listen:
-//val l1=List(1,2,3,4)
-//val l2=List("a","b","c")
+val listC1=List(1,2,3,4)
+val listC2=List("a","b","c")
 //Schreiben Sie eine Funktion, die aus den beiden Listen ein kartesisches Produkt bildet.
 //Ergebnis soll eine Liste von Tupeln sein, deren erstes Element aus l1 kommt und deren
 //zweites aus l2. Verwenden Sie dafür nur Higher Order Functions.
+
+//(element aus list 1, element aus list 2)
+val res = listC1.flatMap(x => listC2.map(y => (x,y)))
+//listC2.map(y => (x,y))) -> List( (x,"a"), (x,"b"), (x,"c") )
+
+
+
+// Aufgabe  2: Implementieren Sie die folgenden Aufgabenstellungen:
+// a) Schreiben Sie eine Funktion moduloMap(l:List[Int], mod_value:Int):Map[Int,List[Int]], die
+//aus einer Liste von Zahlen, eine Map erzeugt, deren Schlüssel ein Int-Wert ist, der sich aus
+//der Modulo-Rechnung des Listenwertes mit mod_value ergibt. Zu den Schlüsselwerten
+//werden dann alle Ints der Ausgangsliste innerhalb einer Liste gespeichert: z.B.:
+val l= List(1,4,5,7,8,9)
+// moduloMap(l,3) ergibt dann:
+// Map(1 -> List(7, 4, 1), 2 -> List(8, 5), 0 -> List(9))
+// Benutzen Sie dafür nur einen Aggregationsoperator!
+
+//Put each number into a "bucket" depending on what the number becomes when you do number % mod_value
+//also groupBy(x % mod_value)
+def moduloMap(l:List[Int], mod_value:Int):Map[Int,List[Int]] =
+  l.foldLeft(Map[Int, List[Int]]())((m,x) => m.updated(x % mod_value, x::m.getOrElse(x % mod_value, Nil)))
+// base ist Empty Map, da ausgabe Map sein muss
+// Maps sind immutable, nicht veränderbar, deswegen immer neue map machen mit updated
+//
+moduloMap(l,3)
 
 
 

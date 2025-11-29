@@ -1,3 +1,26 @@
+// Aufgabe1: Implementieren Sie die folgenden Aufgabenstellungen:
+// a) Schreiben Sie eine Funktion moduloMap(l:List[Int], mod_value:Int):Map[Int,List[Int]], die
+//aus einer Liste von Zahlen, eine Map erzeugt, deren Schlüssel ein Int-Wert ist, der sich aus
+//der Modulo-Rechnung des Listenwertes mit mod_value ergibt. Zu den Schlüsselwerten
+//werden dann alle Ints der Ausgangsliste innerhalb einer Liste gespeichert: z.B.:
+val l= List(1,4,5,7,8,9)
+// moduloMap(l,3) ergibt dann:
+// Map(1 -> List(7, 4, 1), 2 -> List(8, 5), 0 -> List(9))
+// Benutzen Sie dafür nur einen Aggregationsoperator!
+
+def moduloMap(l:List[Int], mod_value:Int):Map[Int,List[Int]] =
+  l.foldLeft(Map[Int,List[Int]]())((m,x) => m.updated(x%mod_value, x::m.getOrElse(x%mod_value,Nil)))
+
+moduloMap(l,3)
+
+
+
+
+
+
+
+
+
 
 
 

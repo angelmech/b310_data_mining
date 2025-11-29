@@ -103,6 +103,26 @@ countLetters2(w)
 
 
 
+//---------------------------------------------------------------------------------------
+//  d) Schreiben Sie eine Funktion avgNumbers(l:List[Int]):Map[Boolean, Double]. Die Funktion
+//soll aus der Liste die Durchschnittswerte der geraden und der ungeraden Zahlen bilden. Der
+//Schlüsselwert soll dabei ein Boolean sein, der bei true alle geraden Werte zusammenfasst
+//und false bei allen ungeraden: z.B.:
+val listD2= List(1,4,5,7,8,9)
+//avgNumbers(l) ergibt:
+// Map(false -> 5.5, true -> 6.0)
+def avgNumbers(l:List[Int]):Map[Boolean, Double] =
+  //l.foldLeft(Map[Boolean, Double]())((m,x) => m.updated(x%2==0, hier iwie summe/anzahl+m.getOrElse(x%2==0, false)))
+  //l.flatMap(x => if (x%2==0) then (true,x.toDouble) else (false, x.toDouble))
+  l.groupBy(_%2==0).view.mapValues(x=>x.sum.toDouble/x.size).toMap
+
+avgNumbers(listD2)
+
+
+
+
+
+
 
 
 

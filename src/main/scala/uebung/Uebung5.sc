@@ -47,6 +47,7 @@ val res = listC1.flatMap(x => listC2.map(y => (x,y)))
 
 
 
+//---------------------------------------------------------------------------------------
 // Aufgabe  2: Implementieren Sie die folgenden Aufgabenstellungen:
 // a) Schreiben Sie eine Funktion moduloMap(l:List[Int], mod_value:Int):Map[Int,List[Int]], die
 //aus einer Liste von Zahlen, eine Map erzeugt, deren Schlüssel ein Int-Wert ist, der sich aus
@@ -72,6 +73,30 @@ moduloMap(l,3)
 
 
 
+//---------------------------------------------------------------------------------------
+// b) Gegeben sei eine Liste von Wörtern. Schreiben Sie eine Funktion
+//countLetters(l:List[String]):Map[Int,Int], die aus der Liste von Wörtern eine Map generiert, in
+//der gespeichert wird, wie viele Wörter es mit einer entsprechenden Buchstabenzahl
+//(Schlüssel) gibt: z.B.
+val w=List("Hallo","das","sind","ein","paar", "Wörter")
+// countLetters(w)
+// ergibt: Map(5 -> 1, 3 -> 2, 4 -> 2, 6 -> 1)
+// Benutzen Sie dafür nur eine Aggregationsfunktion
+
+def countLetters(l:List[String]):Map[Int,Int] =
+  l.foldLeft(Map[Int,Int]())((m,x) => m.updated(x.length, 1 + m.getOrElse(x.length,0))) // size würde auch gehen
+countLetters(w)
+
+
+
+
+
+//---------------------------------------------------------------------------------------
+// c) Wandeln Sie die Funktion so um, dass nicht die Anzahl der Wörter gespeichert wird,
+//sondern die Wörter selbst. Benutzen Sie nur eine Aggregationsfunktion.
+def countLetters2(l:List[String]):Map[Int, List[String]] =
+  l.foldLeft(Map[Int, List[String]]())((m,x) => m.updated(x.length, x::m.getOrElse(x.length, Nil)))
+countLetters2(w)
 
 
 

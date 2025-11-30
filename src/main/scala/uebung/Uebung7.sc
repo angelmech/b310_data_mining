@@ -16,6 +16,26 @@ moduloMap(l,3)
 
 
 
+// b) Gegeben sei eine Liste von Wörtern. Schreiben Sie eine Funktion
+//countLetters(l:List[String]):Map[Int,Int], die aus der Liste von Wörtern eine Map generiert, in
+//der gespeichert wird, wie viele Wörter es mit einer entsprechenden Buchstabenzahl
+//(Schlüssel) gibt: z.B.:
+val w=List("Hallo","das","sind","ein","paar", "Wörter")
+// countLetters(w)
+// ergibt: Map(5 -> 1, 3 -> 2, 4 -> 2, 6 -> 1)
+// Benutzen Sie dafür nur eine Aggregationsfunktion.
+
+def countLetters(l:List[String]):Map[Int,Int] =
+  l.foldLeft(Map[Int,Int]())((m,x) => m.updated(x.length, 1 + m.getOrElse(x.length,0)))
+countLetters(w)
+
+
+// c) Wandeln Sie die Funktion so um, dass nicht die Anzahl der Wörter gespeichert wird,
+//sondern die Wörter selbst. Benutzen Sie nur eine Aggregationsfunktion
+
+def countLetters2(l:List[String]):Map[Int,List[String]] =
+  l.foldLeft(Map[Int,List[String]]())((m,x) => m.updated(x.length, x::m.getOrElse(x.length,Nil)))
+countLetters2(w)
 
 
 
@@ -25,6 +45,34 @@ moduloMap(l,3)
 
 
 
+//-------------------------------------------------------------------
+// Implementieren Sie die folgenden Funktionen:
+// a) Schreiben Sie eine Funktion avgNumbers(l:List[Int]):Map[Boolean, Double]. Die Funktion
+//soll aus der Liste die Durchschnittswerte der geraden und der ungeraden Zahlen bilden. Der
+//Schlüsselwert soll dabei ein Boolean sein, der bei true alle geraden Werte zusammenfasst
+//und false bei allen ungeraden: z.B.:
+val l2= List(1,4,5,7,8,9)
+// avgNumbers(l) ergibt:
+// Map(false -> 5.5, true -> 6.0)
+
+def avgNumbers(l:List[Int]):Map[Boolean, Double] = {
+  l.groupBy(_%2==0).view.mapValues(x => x.sum.toDouble/x.size).toMap
+  // groupBy -> true -> List(4,8)
+  //            false -> List(1,5,7,9) -> x ist List, also sum und size
+}
+avgNumbers(l2)
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------
 // Aufgabe 3: Gegeben sei die folgende Liste von Tupeln:
 val stundenProtokoll:List[(String, Int, List[Int])]= List(("Hans",1,List(7,9,4,12,8)),
 ("Hans",2,List(8,2,10,12,12)), ("Hans",3,List(8,8,8,7,9)),("Hans",4,List(8,9,10,9,8)),
@@ -60,8 +108,6 @@ def maxWork(l:List[(String, Int, List[Int])]):(String,Int) =
 maxWork(stundenProtokoll)
 // flatMap geht auch am anfang, gut bei durchschnittsberechnung
 // maxBy statt reduce auch möglich
-
-
 
 
 

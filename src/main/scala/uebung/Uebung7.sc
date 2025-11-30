@@ -149,6 +149,10 @@ maxWork(stundenProtokoll)
 // (maxHours._1,maxHours._2.map(_._1))
 //}
 
+//2. variante:
+// val days = l.flatMap(x=>x._3.map(y=>(x._1,y)
+// val max = days.map(_._2).max
+// val names = days.filter.map.distinct
 
 
 

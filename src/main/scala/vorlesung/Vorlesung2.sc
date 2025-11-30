@@ -82,15 +82,24 @@ val db =List(("francesco", "bloodsports"), ("simon", "jamesBond"), ("marcus",
 for(x <- db if x._1=="francesco") yield x._2 // gib filme, die francesco gesehen hat
 db.filter(x => x._1=="francesco").map(_._2)
 
+//wer hat james bond gesehen
+for (x <- db if x._2=="jamesBond") yield x._1
+db.filter(_._2 == "jamesBond").map(_._1)
 
-for (x <- db; y <- db if (x._1==y._1 && x._2!=y._2)) yield x._1
+// who seen more than 2 films?
+(for (x <- db; y <- db if (x._1==y._1 && x._2!=y._2)) yield x._1).distinct
 db.flatMap( x=> db.map(y=> (x,y))).filter(z=>z._1._1== z._2._1 && z._1._2!=z._2._2).map(_._1._1)
+for((name, movies) <- db.groupBy(_._1) if movies.size > 2) yield name
+db.groupBy(_._1).view.mapValues(_.size).filter(_._2 > 2).keys.toList
+
 
 //Create two functions that determine who have seen what films
 //The result should contain a list of tuples which contain the name of each person
 // as the fist element and a list of all films the person has seen as the second
 for (x <- db) yield (x._1, for (y <-db if y._1==x._1 ) yield y._2)
-db.map(x=> (x._1, db.filter(y=> x._1 == y._1).map(_._2)))
+db.map(x => (x._1, db.filter(y => y._1 == x._1).map(_._2)))
+db.map(_._1).distinct.map(x => (x, db.filter(y => y._1 == x).map(_._2))) //no duplicates
+
 
 
 

@@ -144,20 +144,6 @@ dailyMaxMySolution(stundenProtokoll)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Für Klausur:
 
 //c) Schreiben sie eine Funktion daylyMax(l:List[(String, Int, List[Int])]):(Int, List[String]), die

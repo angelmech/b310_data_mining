@@ -75,3 +75,51 @@ val data: List[(String, Map[Int, List[Int]])] = List(
     //Die Liste aller Mitarbeiter, die diesen Maximalwert in dieser Woche erreicht haben.
     //Ergebnis: Map von Woche → (max Stunden, Liste von Mitarbeitern)
 
+
+
+
+// FOR + HOF training
+val l= List(1,2)
+val l2= List("a","b","c")
+for (x <- l; y <- l2) yield (x,y) //kartesisches Produkt
+l.flatMap(x => l2.map(y => (x,y)))
+
+val db = List(
+  ("francesco", "bloodsports"),
+  ("simon", "jamesBond"),
+  ("marcus", "jamesBond"),
+  ("francesco", "die12KammernDerShaolin"),
+  ("simon", "missionImpossible"),
+  ("marcus", "die12KammernDerShaolin"),
+  ("francesco", "missionImpossible"),
+  ("gideon", "jamesBond")
+)
+
+//Finde alle Filme, die "francesco" gesehen hat.
+for (x <- db if x._1 == "francesco") yield x._2
+db.filter(_._1 == "francesco").map(_._2)
+
+
+//Erstelle eine Liste aller Leute, die mehr als einen Film gesehen haben.
+for ( (x,y) <- db.groupBy(_._1).toList if y.size > 1) yield x
+db.groupBy(_._1).filter(_._2.size > 1).keys.toList
+db.foldLeft(Map[String, Int]())((m,x) => m.updated(x._1, 1 + m.getOrElse(x._1,0))).filter(_._2 > 1).keys.toList
+
+
+// Erstelle eine Liste von Tupeln (Name, List[Filme]) für jede Person.
+for ((name,entries) <- db.groupBy(_._1).toList) yield (name, for((_,film) <- entries) yield film)
+db.groupBy(_._1).map(x => (x._1, x._2.map(_._2))).toList
+
+
+//Erstelle eine Liste von Tupeln (Name, List[Filme]) für jede Person,
+// aber die Film-Liste soll keine Duplikate enthalten.
+for ((name,entries) <- db.groupBy(_._1).toList) yield (name, for((_,film) <- entries) yield film)
+db.groupBy(_._1).map(x => (x._1, x._2.map(_._2))).toList.distinct
+
+
+// Prüfe, ob jede Person mindestens einen Film gesehen hat.
+db.groupBy(_._1).forall(_._2.size > 1)
+
+// Finde denjenigen/diejenige(n), die die meisten Filme gesehen haben.
+for ((x,y) <- List(db.groupBy(_._1).maxBy(_._2.size))) yield x
+db.groupBy(_._1).view.mapValues(_.size).maxBy(_._2)._1

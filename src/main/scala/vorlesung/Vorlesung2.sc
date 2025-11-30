@@ -9,6 +9,7 @@ def aggArray(v1: Array[Int], v2:Array[Int]):Array[Int] = {
   v1.zip(v2).map(x => x._1 + x._2) // ._1 -> first element of pair
   // v1.zip(v2).map { case (a, b) => a + b }
 }
+aggArray(v1,v2)
 
 // option mit None,Some statt exception handling
 

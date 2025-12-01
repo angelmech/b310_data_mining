@@ -123,3 +123,66 @@ db.groupBy(_._1).forall(_._2.size > 1)
 // Finde denjenigen/diejenige(n), die die meisten Filme gesehen haben.
 for ((x,y) <- List(db.groupBy(_._1).maxBy(_._2.size))) yield x
 db.groupBy(_._1).view.mapValues(_.size).maxBy(_._2)._1
+
+
+
+
+
+
+
+// Uebung 2
+
+def or(x:Boolean, y: => Boolean):Boolean =
+  if (x) true
+  else y
+//call by name parameter, y wird nicht ausgewertet bis es benötigt wird in "else y"
+
+
+
+def myMethod(param:Int):String=
+  if (param<0) "kleiner null"
+  if (param>0) "größer null"
+  else "null"
+// man brauch ein else nach dem ersten if,
+// sonst beendet die funktion nicht nach dem ersten statement,
+// man kommt somit, also nie an "kleiner null" auch wenn param=-1
+
+
+def squareUnder(x:Double, max:Double):Double = {
+  if (x*x>max) x
+  else squareUnder(x*x, max)
+}
+squareUnder(2,300)
+
+
+
+
+//von oben nach untern also 20 ... 1 bis ein teiler gefunden wird → größter automatisch
+def  teiler(zahl:Int):Int = {
+  def teiler_help(i: Int):Int =
+    if(zahl%i==0) i
+    else teiler_help(i-1)
+
+  if(zahl<=0) 0
+  else teiler_help(zahl-1)
+}
+teiler(-12)
+teiler(22)
+
+//von unten nach oben also e.g. 2 ... 20 bis 20-1, da 20/20 → wäre zahl immer teiler
+def  teiler2(zahl:Int):Int = {
+  def teiler_help(i: Int, currentBiggestDivisor: Int):Int = {
+    if (i==zahl-1) currentBiggestDivisor
+    else if(zahl%i==0) teiler_help(i+1, i)
+    else teiler_help(i+1, currentBiggestDivisor)
+  }
+
+  if(zahl<=0) 0
+  else teiler_help(2,1)
+}
+teiler2(-12)
+teiler2(22)
+
+
+
+

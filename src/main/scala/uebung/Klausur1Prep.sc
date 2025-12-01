@@ -19,7 +19,11 @@ avgWorkPerEmployee(stundenProtokoll)
 
 // Aufgabe 2: Anzahl Wochen pro Mitarbeiter
 //Schreibe eine Funktion:
-//def weeksPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int]
+//stundenProtokoll.groupBy(_._1).view.mapValues(_.size).toMap
+def weeksPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int] =
+  l.groupBy(_._1).view.mapValues(_.size).toMap
+  //l.groupBy(_._2)
+
 //Zähle, wie viele Wochen jeder Mitarbeiter im Protokoll hat.
 
 
@@ -158,7 +162,7 @@ squareUnder(2,300)
 
 
 //von oben nach untern also 20 ... 1 bis ein teiler gefunden wird → größter automatisch
-def  teiler(zahl:Int):Int = {
+def teiler(zahl:Int):Int = {
   def teiler_help(i: Int):Int =
     if(zahl%i==0) i
     else teiler_help(i-1)
@@ -170,7 +174,7 @@ teiler(-12)
 teiler(22)
 
 //von unten nach oben also e.g. 2 ... 20 bis 20-1, da 20/20 → wäre zahl immer teiler
-def  teiler2(zahl:Int):Int = {
+def teiler2(zahl:Int):Int = {
   def teiler_help(i: Int, currentBiggestDivisor: Int):Int = {
     if (i==zahl-1) currentBiggestDivisor
     else if(zahl%i==0) teiler_help(i+1, i)
@@ -185,4 +189,20 @@ teiler2(22)
 
 
 
+def fibo(x:Int):Int = x match
+  case 0 => 0
+  case 1 => 1
+  case x => fibo(x-1) + fibo(x-2)
+fibo(5)
 
+
+
+def printHello(N: Int): Unit = {
+  def loop(i: Int): Unit = i match {
+    case N => println("")
+    case _ => println("Hello "); loop(i + 1)
+  }
+
+  loop(0)
+}
+printHello(4)

@@ -22,28 +22,33 @@ avgWorkPerEmployee(stundenProtokoll)
 //stundenProtokoll.groupBy(_._1).view.mapValues(_.size).toMap
 def weeksPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int] =
   l.groupBy(_._1).view.mapValues(_.size).toMap
-  //l.groupBy(_._2)
-
-//Zähle, wie viele Wochen jeder Mitarbeiter im Protokoll hat.
 
 
 
 //Aufgabe 3: Mitarbeiter mit allen Wochen > 40 Stunden
-//def fullWeeks(l: List[(String, Int, List[Int])]): List[String]
+stundenProtokoll.groupBy(_._1).filter(x => x._2.forall(_._3.sum > 30)).keys.toList
+def fullWeeks(l: List[(String, Int, List[Int])]): List[String] = ???
 //Finde alle Mitarbeiter, deren jede Woche mehr als 40 Stunden insgesamt hat.
+
 
 
 
 //Aufgabe 4: Maximaler Tag pro Mitarbeiter
 //def maxDailyPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int]
 //Für jeden Mitarbeiter, finde den höchsten Wert, der an einem einzelnen Tag gearbeitet wurde.
+def maxDailyPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int] =
+  l.groupBy(_._1).map(x => x._1 -> x._2.foldLeft(0)((acc, woche) =>
+      woche._3.foldLeft(acc)((a, d) => if (d > a) d else a)
+    )
+  )
+
 
 
 
 //Aufgabe 5: Durchschnitt pro Tag
 //def avgPerDay(l: List[(String, Int, List[Int])]): Map[Int, Double]
 //Berechne für jeden Wochentag (1..5) den Durchschnitt über alle Mitarbeiter und Wochen.
-
+//stundenProtokoll.groupBy(_._2).view.mapValues(x => )
 
 
 //Aufgabe 6: Überstunden-Mitarbeiter
@@ -55,7 +60,7 @@ def weeksPerEmployee(l: List[(String, Int, List[Int])]): Map[String, Int] =
 //Aufgabe 7: Summe der Stunden pro Woche
 //def sumPerWeek(l: List[(String, Int, List[Int])]): Map[Int, Int]
 //Berechne, wie viele Stunden alle Mitarbeiter zusammen in jeder Woche gearbeitet haben.
-
+stundenProtokoll.groupBy(_._2).view.mapValues(_.map(_._3.sum).sum).toMap
 
 
 
@@ -69,7 +74,8 @@ val data: List[(String, Map[Int, List[Int]])] = List(
 //Schreibe eine Funktion:
 // def totalHoursPerEmployee(l: List[(String, Map[Int, List[Int]])]): Map[String, Int]
 //Berechne die Gesamtstunden pro Mitarbeiter, über alle Wochen und Tage.
-
+data.map((x,y) => (x, y.map(_._2.sum).sum))
+def totalHoursPerEmployee(l: List[(String, Map[Int, List[Int]])]): Map[String, Int] = ???
 
 
 //Aufgabe 2: Maximaler Tageswert pro Woche über alle Mitarbeiter

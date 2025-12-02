@@ -101,7 +101,3 @@ db.map(x => (x._1, db.filter(y => y._1 == x._1).map(_._2)))
 db.map(_._1).distinct.map(x => (x, db.filter(y => y._1 == x).map(_._2))) //no duplicates
 
 
-
-
-
-

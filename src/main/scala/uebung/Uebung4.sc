@@ -53,6 +53,22 @@ def toList(set:Set, a:Int, b:Int):List[Int] = {
   else toList(set, a+1, b) // skip it and recurse
 }
 
+//extra
+def delete(elem: Int, set: Set): Set =
+  x => x!=elem && set(x)
+
+
+def intersection(s1: Set, s2: Set): Set =
+  x => contains(x, s1) && contains(x,s2)
+
+
+def difference(s1: Set, s2: Set): Set =
+  x => s1(x) && !s2(x)
+
+
+def filter(set: Set, pred: Int => Boolean): Set =
+  x => set(x) && pred(x)
+
 
 def set1 = createEmptySet
 val set2 = insert(4, set1)

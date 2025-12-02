@@ -165,6 +165,11 @@ def squareUnder(x:Double, max:Double):Double = {
 squareUnder(2,300)
 
 
+def multipleOf3_5(zahl: Int):Int = {
+  if(zahl == 0) 0
+  else if(zahl%3==0 || zahl%5==0) zahl+multipleOf3_5(zahl-1)
+  else multipleOf3_5(zahl-1)
+}
 
 
 //von oben nach untern also 20 ... 1 bis ein teiler gefunden wird → größter automatisch
